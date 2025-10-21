@@ -107,22 +107,22 @@
 
 
 // テンキー
-#define USB_KEY_NUM0        0x62 // テンキー0
-#define USB_KEY_NUM1        0x59 // テンキー1
-#define USB_KEY_NUM2        0x5A // テンキー2
-#define USB_KEY_NUM3        0x5B // テンキー3
-#define USB_KEY_NUM4        0x5C // テンキー4
-#define USB_KEY_NUM5        0x5D // テンキー5
-#define USB_KEY_NUM6        0x5E // テンキー6
-#define USB_KEY_NUM7        0x5F // テンキー7
-#define USB_KEY_NUM8        0x60 // テンキー8
-#define USB_KEY_NUM9        0x61 // テンキー9
-#define USB_KEY_NUMPAD_DOT  0x63 // テンキー.
-#define USB_KEY_NUMPAD_SLASH 0x54 // テンキー/
+#define USB_KEY_NUM0            0x62 // テンキー0
+#define USB_KEY_NUM1            0x59 // テンキー1
+#define USB_KEY_NUM2            0x5A // テンキー2
+#define USB_KEY_NUM3            0x5B // テンキー3
+#define USB_KEY_NUM4            0x5C // テンキー4
+#define USB_KEY_NUM5            0x5D // テンキー5
+#define USB_KEY_NUM6            0x5E // テンキー6
+#define USB_KEY_NUM7            0x5F // テンキー7
+#define USB_KEY_NUM8            0x60 // テンキー8
+#define USB_KEY_NUM9            0x61 // テンキー9
+#define USB_KEY_NUMPAD_DOT      0x63 // テンキー.
+#define USB_KEY_NUMPAD_SLASH    0x54 // テンキー/
 #define USB_KEY_NUMPAD_ASTERISK 0x55 // テンキー*
-#define USB_KEY_NUMPAD_MINUS 0x56 // テンキー-
-#define USB_KEY_NUMPAD_PLUS 0x57 // テンキー+
-#define USB_KEY_NUMPAD_ENTER 0x58 // テンキーEnter
+#define USB_KEY_NUMPAD_MINUS    0x56 // テンキー-
+#define USB_KEY_NUMPAD_PLUS     0x57 // テンキー+
+#define USB_KEY_NUMPAD_ENTER    0x58 // テンキーEnter
 
 #define USB_KEY_LF 0xFF
 #define USB_KEY_CARET 0xFF
@@ -144,22 +144,22 @@
 // -----------------------------------------------------------------------------
 
 static const uint16_t SORD_M68_KEY_CODE_MAP[15][8] = {
-    // A,                      B,             C,              D,            E,              F,              G,            H             // 74LS166にパラレル入力されるデータ。8ビット。A..Hはデータシートで各ピンについている名前。
-    { USB_KEY_NONE,            USB_KEY_NONE,  USB_KEY_LEFT_SHIFT, USB_KEY_NONE,  USB_KEY_TAB,    USB_KEY_ESC,    USB_KEY_NONE, USB_KEY_LEFT_CTRL   }, // Col 01 // M68キーボードにおける列。全部で15列。16列は未実装なので、スキャン対象から除外されている。
-    { USB_KEY_NONE,            USB_KEY_NONE,  USB_KEY_z,      USB_KEY_a,         USB_KEY_q,      USB_KEY_1,      USB_KEY_NONE, USB_KEY_LEFT_SHIFT  }, // Col 02
-    { USB_KEY_DOWN,            USB_KEY_LEFT,  USB_KEY_x,      USB_KEY_s,         USB_KEY_w,      USB_KEY_2,      USB_KEY_NONE, USB_KEY_SMALL       }, // Col 03
-    { USB_KEY_UP,              USB_KEY_RIGHT, USB_KEY_c,      USB_KEY_d,         USB_KEY_e,      USB_KEY_3,      USB_KEY_NONE, USB_KEY_RESET       }, // Col 04
-    { USB_KEY_NONE,            USB_KEY_NONE,  USB_KEY_v,      USB_KEY_f,         USB_KEY_r,      USB_KEY_4,      USB_KEY_NONE, USB_KEY_S1          }, // Col 05
-    { USB_KEY_NUMPAD_ASTERISK, USB_KEY_NONE,  USB_KEY_b,      USB_KEY_g,         USB_KEY_t,      USB_KEY_5,      USB_KEY_NONE, USB_KEY_S2          }, // Col 06
-    { USB_KEY_NONE,            USB_KEY_NUM7,  USB_KEY_SPACE,  USB_KEY_h,         USB_KEY_y,      USB_KEY_6,      USB_KEY_NONE, USB_KEY_NONE        }, // Col 07
-    { USB_KEY_NUM9,            USB_KEY_NUM8,  USB_KEY_n,      USB_KEY_j,         USB_KEY_u,      USB_KEY_7,      USB_KEY_NONE, USB_KEY_NONE        }, // Col 08
-    { USB_KEY_NUM_E,           USB_KEY_NUM4,  USB_KEY_m,      USB_KEY_k,         USB_KEY_i,      USB_KEY_8,      USB_KEY_F1,   USB_KEY_NONE        }, // Col 09
-    { USB_KEY_NUM6,            USB_KEY_NUM5,  USB_KEY_COMMA,  USB_KEY_l,         USB_KEY_o,      USB_KEY_9,      USB_KEY_F2,   USB_KEY_NONE        }, // Col 10
-    { USB_KEY_NUM3,            USB_KEY_NUM1,  USB_KEY_PERIOD, USB_KEY_SEMICOLON, USB_KEY_p,      USB_KEY_0,      USB_KEY_F3,   USB_KEY_NONE        }, // Col 11
-    { USB_KEY_NUMPAD_DOT,      USB_KEY_NUM0,  USB_KEY_SLASH,  USB_KEY_COLON,     USB_KEY_ATMARK, USB_KEY_MINUS,  USB_KEY_F4,   USB_KEY_KANA        }, // Col 12
-    { USB_KEY_NONE,            USB_KEY_NONE,  USB_KEY_BACKSLASH,UBS_KEY_RIGHT_BRACE,USB_KEY_LEFT_BRACE, USB_KEY_CARET,USB_KEY_F5,USB_KEY_NONE        }, // Col 13
-    { USB_KEY_NONE,            USB_KEY_NONE,  USB_KEY_NONE,   USB_KEY_NONE,      USB_KEY_NONE,   USB_KEY_BACKSLASH,USB_KEY_F6, USB_KEY_NONE        }, // Col 14
-    { USB_KEY_NONE,            USB_KEY_NONE,  USB_KEY_NONE,   USB_KEY_LF,        USB_KEY_RETURN, USB_KEY_DELETE, USB_KEY_F7,   USB_KEY_NONE        }  // Col 15
+    // A,                      B,             C,              D,                 E,              F,              G,            H                      // 74LS166にパラレル入力されるデータ。8ビット。A..Hはデータシートで各ピンについている名前。
+    { USB_KEY_NONE,            USB_KEY_NONE,  USB_KEY_LEFT_SHIFT, USB_KEY_NONE,       USB_KEY_TAB,        USB_KEY_ESC,       USB_KEY_NONE, USB_KEY_LEFT_CTRL   }, // Col 01 // M68キーボードにおける列。全部で15列。16列は未実装なので、スキャン対象から除外されている。
+    { USB_KEY_NONE,            USB_KEY_NONE,  USB_KEY_z,          USB_KEY_a,          USB_KEY_q,          USB_KEY_1,         USB_KEY_NONE, USB_KEY_LEFT_SHIFT  }, // Col 02
+    { USB_KEY_DOWN,            USB_KEY_LEFT,  USB_KEY_x,          USB_KEY_s,          USB_KEY_w,          USB_KEY_2,         USB_KEY_NONE, USB_KEY_SMALL       }, // Col 03
+    { USB_KEY_UP,              USB_KEY_RIGHT, USB_KEY_c,          USB_KEY_d,          USB_KEY_e,          USB_KEY_3,         USB_KEY_NONE, USB_KEY_RESET       }, // Col 04
+    { USB_KEY_NONE,            USB_KEY_NONE,  USB_KEY_v,          USB_KEY_f,          USB_KEY_r,          USB_KEY_4,         USB_KEY_NONE, USB_KEY_S1          }, // Col 05
+    { USB_KEY_NUMPAD_ASTERISK, USB_KEY_NONE,  USB_KEY_b,          USB_KEY_g,          USB_KEY_t,          USB_KEY_5,         USB_KEY_NONE, USB_KEY_S2          }, // Col 06
+    { USB_KEY_NONE,            USB_KEY_NUM7,  USB_KEY_SPACE,      USB_KEY_h,          USB_KEY_y,          USB_KEY_6,         USB_KEY_NONE, USB_KEY_NONE        }, // Col 07
+    { USB_KEY_NUM9,            USB_KEY_NUM8,  USB_KEY_n,          USB_KEY_j,          USB_KEY_u,          USB_KEY_7,         USB_KEY_NONE, USB_KEY_NONE        }, // Col 08
+    { USB_KEY_NUM_E,           USB_KEY_NUM4,  USB_KEY_m,          USB_KEY_k,          USB_KEY_i,          USB_KEY_8,         USB_KEY_F1,   USB_KEY_NONE        }, // Col 09
+    { USB_KEY_NUM6,            USB_KEY_NUM5,  USB_KEY_COMMA,      USB_KEY_l,          USB_KEY_o,          USB_KEY_9,         USB_KEY_F2,   USB_KEY_NONE        }, // Col 10
+    { USB_KEY_NUM3,            USB_KEY_NUM1,  USB_KEY_PERIOD,     USB_KEY_SEMICOLON,  USB_KEY_p,          USB_KEY_0,         USB_KEY_F3,   USB_KEY_NONE        }, // Col 11
+    { USB_KEY_NUMPAD_DOT,      USB_KEY_NUM0,  USB_KEY_SLASH,      USB_KEY_COLON,      USB_KEY_ATMARK,     USB_KEY_MINUS,     USB_KEY_F4,   USB_KEY_KANA        }, // Col 12
+    { USB_KEY_NONE,            USB_KEY_NONE,  USB_KEY_BACKSLASH,  UBS_KEY_RIGHT_BRACE,USB_KEY_LEFT_BRACE, USB_KEY_CARET,     USB_KEY_F5,   USB_KEY_NONE        }, // Col 13
+    { USB_KEY_NONE,            USB_KEY_NONE,  USB_KEY_NONE,       USB_KEY_NONE,       USB_KEY_NONE,       USB_KEY_BACKSLASH, USB_KEY_F6,   USB_KEY_NONE        }, // Col 14
+    { USB_KEY_NONE,            USB_KEY_NONE,  USB_KEY_NONE,       USB_KEY_LF,         USB_KEY_RETURN,     USB_KEY_BACKSPACE, USB_KEY_F7,   USB_KEY_NONE        }  // Col 15
 };
 
 #endif

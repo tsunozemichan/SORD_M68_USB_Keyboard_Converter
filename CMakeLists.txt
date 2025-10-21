@@ -28,24 +28,24 @@ set(PICO_BOARD pico2 CACHE STRING "Board type")
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-project(usbconverter03 C CXX ASM)
+project(usbconverter C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(usbconverter03 usbconverter03.cpp)
+add_executable(usbconverter usbconverter.cpp)
 
-pico_set_program_name(usbconverter03 "usbconverter03")
-pico_set_program_version(usbconverter03 "0.1")
+pico_set_program_name(usbconverter "usbconverter")
+pico_set_program_version(usbconverter "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(usbconverter03 0)
-pico_enable_stdio_usb(usbconverter03 1)
+pico_enable_stdio_uart(usbconverter 0)
+pico_enable_stdio_usb(usbconverter 1)
 
 # Add the standard library to the build
-target_link_libraries(usbconverter03
+target_link_libraries(usbconverter
         pico_stdlib
         hardware_pio
         hardware_irq
@@ -54,8 +54,8 @@ target_link_libraries(usbconverter03
         )
 
 # Add the standard include files to the build
-target_include_directories(usbconverter03 PRIVATE
+target_include_directories(usbconverter PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
 )
 
-pico_add_extra_outputs(usbconverter03)
+pico_add_extra_outputs(usbconverter)

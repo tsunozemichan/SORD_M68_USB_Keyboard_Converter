@@ -145,6 +145,24 @@ bool readKeycodeFromUART1(uint8_t &keycode, uint8_t &modifier) {
     return false;
 }
 
+// columnBitsの全要素を0xFFで埋める。
+inline void clearAllColumnBits() {
+    columnBits[0] = 0xFF;
+    columnBits[1] = 0xFF;
+    columnBits[2] = 0xFF;
+    columnBits[3] = 0xFF;
+    columnBits[4] = 0xFF;
+    columnBits[5] = 0xFF;
+    columnBits[6] = 0xFF;
+    columnBits[7] = 0xFF;
+    columnBits[8] = 0xFF;
+    columnBits[9] = 0xFF;
+    columnBits[10] = 0xFF;
+    columnBits[11] = 0xFF;
+    columnBits[12] = 0xFF;
+    columnBits[13] = 0xFF;
+    columnBits[14] = 0xFF;
+}
 
 uint8_t keycode=0;
 uint8_t prev_keycode=0;
@@ -154,9 +172,13 @@ int8_t last_column = -1, last_row = -1;
 int8_t last_modifier_column = -1, last_modifier_row = -1;
 uint8_t make_shift_key = 0; // SHIFTキーが押されたら 1 になる。
 uint8_t make_ctrl_key = 0; // CTRLキーが押されたら 1 になる。
+uint8_t shift_col = 1;
+uint8_t shift_row = 7;
+uint8_t ctrl_col = 0;
+uint8_t ctr_row = 7;
 
 // UART1から受信したキーコードとmodifierをシリアルモニタに出力
-void checkAndPrintUART1Data() {
+void checkAndOutputUART1Data() {
     if (readKeycodeFromUART1(keycode, modifier)) {
         if(keycode == 0){ // キーが離された時に実行。キーを押して、離したときしか入れないので、last_columnが-1になることはない。
                 uint8_t rowBits = 0xFF; // ビットをデフォルトに設定。
@@ -179,14 +201,22 @@ void checkAndPrintUART1Data() {
                 last_row = pos.row;
                 // printf("Press: Col=%d Row=%d  A..H=0x%02X\n", pos.col + 1, pos.row + 1, rowBits);
                 
-                // modifierの設定
-                make_ctrl_key  = 0;
-                make_shift_key = 0;
-                if(modifier == 0x20 || modifier == 0x02 ){
+                // Modifierキーの実装
+                if(modifier == 0x20 || modifier == 0x02 ){ // SHIFTキーが押されている。
+                    uint8_t rowBits = rowToAHMask(shift_row);
+                    columnBits[shift_col] = rowBits;
                     make_shift_key = 1;
                 }
-                if(modifier == 0x10 || modifier == 0x01 ){
+                if(modifier == 0x10 || modifier == 0x01 ){ // CTRLキーが押されている。
+                    uint8_t rowBits = rowToAHMask(ctr_row);
+                    columnBits[ctrl_col] = rowBits;
                     make_ctrl_key = 1;
+                }
+                if(modifier == 0 && (make_shift_key == 1 || make_ctrl_key == 1)){ // SHIFTまたはCTRLキーが離された 
+                    columnBits[shift_col]= 0xFF; // HIGHに戻す
+                    columnBits[ctrl_col]= 0xFF;  // HIGHに戻す。
+                    make_shift_key = 0;
+                    make_ctrl_key = 0;
                 }
             }
        }
@@ -239,7 +269,7 @@ int main() {
     // ============ main loop ============
     for (;;) {
         // UART1からキーコード＆modifier受信チェック--->シリアルモニタにkeycodeとmodifierを表示するのみ。
-        checkAndPrintUART1Data();
+        checkAndOutputUART1Data();
 
         // Watchdogキック（直近PEから6秒以内のみ）
         uint32_t now_us = time_us_32();
