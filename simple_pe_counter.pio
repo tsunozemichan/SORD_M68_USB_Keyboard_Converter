@@ -1,0 +1,83 @@
+.program simple_pe_counter
+
+; シンプルなPE立ち下がりエッジカウンタ
+; 初回・通常の区別なし、ただカウントするだけ
+
+.wrap_target
+count_falling_edges:
+    ; 立ち下がりエッジを待つ
+    wait 0 pin 0
+    
+    ; 割り込み発生（カウント）
+    irq set 0
+    
+    ; HIGHに戻るのを待つ
+    wait 1 pin 0
+    
+    ; 次のエッジを待つために戻る
+.wrap
+
+% c-sdk {
+    static inline void simple_pe_counter_program_init(PIO pio, uint sm, uint offset, uint pin) {
+        pio_sm_config c = simple_pe_counter_program_get_default_config(offset);
+        
+        // 入力ピン設定
+        sm_config_set_in_pins(&c, pin);
+        
+        // GPIO設定
+        pio_gpio_init(pio, pin);
+        pio_sm_set_consecutive_pindirs(pio, sm, pin, 1, false);
+        
+        // プルダウン設定
+        gpio_pull_down(pin);
+        
+        // ステートマシン初期化
+        pio_sm_init(pio, sm, offset, &c);
+        
+        // IRQクリア
+        pio_interrupt_clear(pio, 0);
+        
+        // ステートマシン開始
+        pio_sm_set_enabled(pio, sm, true);
+        
+        ; printf("Simple PE counter started on pin %d\n", pin);
+    }
+    
+    // シンプルなPE立ち下がりエッジハンドラ
+    static void simple_pe_handler(void) {
+        pio_interrupt_clear(pio0, 0);
+        
+        // デバッグパルス出力
+        gpio_put(PIN_DEBUG_NEXT, 1);
+        busy_wait_us(10);
+        gpio_put(PIN_DEBUG_NEXT, 0);
+        
+        // column_scan_lineを更新
+        column_scan_line = (column_scan_line % 15) + 1;
+        
+        // メモリバリアを強制実行（キャッシュフラッシュ）
+        __dmb();  // Data Memory Barrier
+    }
+    
+    static inline void setup_simple_pe_counter(uint input_pin, uint debug_pin) {
+        // デバッグピン初期化
+        gpio_init(debug_pin);
+        gpio_set_dir(debug_pin, GPIO_OUT);
+        gpio_put(debug_pin, 0);
+        
+        // PIOプログラムロード
+        uint offset = pio_add_program(pio0, &simple_pe_counter_program);
+        
+        // ステートマシン初期化
+        simple_pe_counter_program_init(pio0, 0, offset, input_pin);
+        
+        // 割り込みハンドラ設定
+        irq_set_exclusive_handler(PIO0_IRQ_0, simple_pe_handler);
+        irq_set_enabled(PIO0_IRQ_0, true);
+        pio_set_irq0_source_enabled(pio0, pis_interrupt0, true);
+        
+        ; printf("Simple PE counter setup complete\n");
+        ; printf("  Input: GPIO %d\n", input_pin);
+        ; printf("  Debug: GPIO %d\n", debug_pin);
+    }
+%}
