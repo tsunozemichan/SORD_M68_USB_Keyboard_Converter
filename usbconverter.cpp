@@ -281,7 +281,7 @@ int main() {
         float elapsed_sec = absolute_time_diff_us(last_pe_time_us, now) / 1e6;  // 秒単位に変換
 
         if (elapsed_sec < 18.0f) {
-            watchdog_update();   // PEから6秒以内ならキック
+            watchdog_update();   // PEから18秒以内ならキック
         }
 
         tight_loop_contents();
