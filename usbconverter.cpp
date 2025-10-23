@@ -257,11 +257,11 @@ int main() {
     gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
 
     // Watchdog (デバッグ中は無効化)
-    if (watchdog_caused_reboot()) {
-        // printf("*** M68 RESET DETECTED! ***\n");
-        column_scan_line = 0;
-    }
-    watchdog_enable(8000 /*ms*/, 1); // 8秒
+    // if (watchdog_caused_reboot()) {
+    //     // printf("*** M68 RESET DETECTED! ***\n");
+    //     column_scan_line = 0;
+    // }
+    // watchdog_enable(8000 /*ms*/, 1); // 8秒
 
     uint16_t prev_keycode = 0;
     int8_t last_col = -1, last_row = -1;
@@ -272,9 +272,9 @@ int main() {
         checkAndOutputUART1Data();
 
         // Watchdogキック（直近PEから6秒以内のみ）
-        uint32_t now_us = time_us_32();
-        uint32_t elapsed = now_us - last_pe_time_us;
-        if (elapsed < 6000000u) watchdog_update();
+        // uint32_t now_us = time_us_32();
+        // uint32_t elapsed = now_us - last_pe_time_us;
+        // if (elapsed < 6000000u) watchdog_update();
 
         tight_loop_contents();
     }
