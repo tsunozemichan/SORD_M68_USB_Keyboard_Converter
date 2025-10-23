@@ -257,11 +257,11 @@ int main() {
     gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
 
     // Watchdog (デバッグ中は無効化)
-    // if (watchdog_caused_reboot()) {
-    //     // printf("*** M68 RESET DETECTED! ***\n");
-    //     column_scan_line = 0;
-    // }
-    // watchdog_enable(8000 /*ms*/, 1); // 8秒
+    if (watchdog_caused_reboot()) {
+        // printf("*** M68 RESET DETECTED! ***\n");
+        column_scan_line = 0;
+    }
+    watchdog_enable(20000 /*ms*/, 1); // 20秒
 
     uint16_t prev_keycode = 0;
     int8_t last_col = -1, last_row = -1;
@@ -274,7 +274,15 @@ int main() {
         // Watchdogキック（直近PEから6秒以内のみ）
         // uint32_t now_us = time_us_32();
         // uint32_t elapsed = now_us - last_pe_time_us;
-        // if (elapsed < 6000000u) watchdog_update();
+        // if (elapsed < 19000000u) watchdog_update();
+
+        // Watchdogキック（直近PEから6秒以内のみ）
+        absolute_time_t now = get_absolute_time();                   // 現在時刻を取得
+        float elapsed_sec = absolute_time_diff_us(last_pe_time_us, now) / 1e6;  // 秒単位に変換
+
+        if (elapsed_sec < 18.0f) {
+            watchdog_update();   // PEから6秒以内ならキック
+        }
 
         tight_loop_contents();
     }
