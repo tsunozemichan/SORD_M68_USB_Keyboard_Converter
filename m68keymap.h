@@ -91,19 +91,20 @@
 #define USB_KEY_y           0x1C // yキー
 #define USB_KEY_z           0x1D // zキー
 
-// 記号キー
-#define USB_KEY_MINUS       0x2D // -キー(マイナス/アンダースコア)
-#define USB_KEY_EQUAL       0x2E // =キー(イコール/プラス)
-#define USB_KEY_LEFT_BRACE  0x2F // [キー
-#define USB_KEY_RIGHT_BRACE 0x30 // ]キー
-#define USB_KEY_BACKSLASH   0x31 // \キー(バックスラッシュ/パイプ)
-#define USB_KEY_SEMICOLON   0x33 // ;キー(セミコロン/コロン)
-#define USB_KEY_APOSTROPHE  0x34 // 'キー(アポストロフィ/ダブルクォート)
-#define USB_KEY_GRAVE       0x35 // `キー(グレイブ/チルダ)
-#define USB_KEY_COMMA       0x36 // ,キー(カンマ/小なり)
-#define USB_KEY_PERIOD      0x37 // .キー(ピリオド/大なり)
-#define USB_KEY_SLASH       0x38 // /キー(スラッシュ/クエスチョン)
-
+// 記号キー (JIS)
+#define USB_KEY_MINUS       0x2D // -/=キー(マイナス/アンダースコア)
+#define USB_KEY_CARET       0x2E // ^/~キー
+#define USB_KEY_ATMARK      0x2F // @/'キー
+#define USB_KEY_LEFT_BRACE  0x30 // [/{キー
+#define USB_KEY_RIGHT_BRACE 0x32 // ]/}キー
+#define USB_KEY_SEMICOLON   0x33 // ;/+キー(セミコロン)
+#define USB_KEY_COLON       0x34 // :/*キー(コロン)
+#define USB_KEY_KANA        0x35 // Hankaku/Zenkaku
+#define USB_KEY_COMMA       0x36 // ,/<キー(カンマ/小なり)
+#define USB_KEY_PERIOD      0x37 // ./>キー(ピリオド/大なり)
+#define USB_KEY_SLASH       0x38 // //?キー(スラッシュ/クエスチョン)
+#define USB_KEY_CAPS        0x39 // CAPSキー(スラッシュ/クエスチョン)
+#define USB_KEY_BACKSLASH   0x87 // \/_キー(バックスラッシュ/アンダーバー)
 
 
 // テンキー
@@ -124,19 +125,14 @@
 #define USB_KEY_NUMPAD_PLUS     0x57 // テンキー+
 #define USB_KEY_NUMPAD_ENTER    0x58 // テンキーEnter
 
-#define USB_KEY_LF 0xFF
-#define USB_KEY_CARET 0xFF
-#define USB_KEY_KANA 0xFF
-#define USB_KEY_NUM_E 0xFF
-#define USB_KEY_ATMARK 0xFF
-#define USB_KEY_COLON 0xFF
-#define UBS_KEY_RIGHT_BRACE 0xFF
+#define USB_KEY_S1              0x46 // PrintScreen
+#define USB_KEY_S2              0x47 // ScreenLock
+#define USB_KEY_RESET           0x48 // Pause
+#define USB_KEY_LF              0x4A // Home
+#define USB_KEY_SMALL           0x4D // End
 
-#define USB_KEY_RESET 0xFF
-#define USB_KEY_SMALL 0xFF
-#define USB_KEY_S1 0xFF
-#define USB_KEY_S2 0xFF
-#define USB_KEY_NONE 0xFF
+#define USB_KEY_NUM_E           0xFF
+#define USB_KEY_NONE            0xFF
 
 
 // -----------------------------------------------------------------------------
@@ -157,7 +153,7 @@ static const uint16_t SORD_M68_KEY_CODE_MAP[15][8] = {
     { USB_KEY_NUM6,            USB_KEY_NUM5,  USB_KEY_COMMA,      USB_KEY_l,          USB_KEY_o,          USB_KEY_9,         USB_KEY_F2,   USB_KEY_NONE        }, // Col 10
     { USB_KEY_NUM3,            USB_KEY_NUM1,  USB_KEY_PERIOD,     USB_KEY_SEMICOLON,  USB_KEY_p,          USB_KEY_0,         USB_KEY_F3,   USB_KEY_NONE        }, // Col 11
     { USB_KEY_NUMPAD_DOT,      USB_KEY_NUM0,  USB_KEY_SLASH,      USB_KEY_COLON,      USB_KEY_ATMARK,     USB_KEY_MINUS,     USB_KEY_F4,   USB_KEY_KANA        }, // Col 12
-    { USB_KEY_NONE,            USB_KEY_NONE,  USB_KEY_BACKSLASH,  UBS_KEY_RIGHT_BRACE,USB_KEY_LEFT_BRACE, USB_KEY_CARET,     USB_KEY_F5,   USB_KEY_NONE        }, // Col 13
+    { USB_KEY_NONE,            USB_KEY_NONE,  USB_KEY_BACKSLASH,  USB_KEY_RIGHT_BRACE,USB_KEY_LEFT_BRACE, USB_KEY_CARET,     USB_KEY_F5,   USB_KEY_NONE        }, // Col 13
     { USB_KEY_NONE,            USB_KEY_NONE,  USB_KEY_NONE,       USB_KEY_NONE,       USB_KEY_NONE,       USB_KEY_BACKSLASH, USB_KEY_F6,   USB_KEY_NONE        }, // Col 14
     { USB_KEY_NONE,            USB_KEY_NONE,  USB_KEY_NONE,       USB_KEY_LF,         USB_KEY_RETURN,     USB_KEY_BACKSPACE, USB_KEY_F7,   USB_KEY_NONE        }  // Col 15
 };
